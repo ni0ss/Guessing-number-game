@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎮 لعبة التخمين</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at center, #0d0d1a, #1a0033);
+      color: white;
+      text-align: center;
+      padding-top: 100px;
+    }
+
+    h1 {
+      color: #a066ff;
+      margin-bottom: 30px;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: 2px solid #a066ff;
+      background: #1a0033;
+      color: white;
+      outline: none;
+      text-align: center;
+      width: 100px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #a066ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #8e44ad;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎯 لعبة تخمين الرقم</h1>
+  <p>خمن رقم بين <strong>0</strong> و<strong>10</strong></p>
+
+  <input type="number" id="guess" min="0" max="10" placeholder="؟">
+  <br>
+  <button onclick="checkGuess()">تخمين</button>
+  <button onclick="restartGame()">إعادة اللعبة 🔄</button>
+
+  <p id="message"></p>
+
+  <script>
+    let randomNumber = Math.floor(Math.random() * 11);
+    console.log("الرقم السري:", randomNumber); // للمساعدة بالتصحيح
+
+    function checkGuess() {
+      const guess = Number(document.getElementById("guess").value);
+      const message = document.getElementById("message");
+
+      if (isNaN(guess) || guess < 0 || guess > 10) {
+        message.textContent = "❌ رجاءً أدخل رقم بين 0 و 10.";
+        message.style.color = "orange";
+        return;
+      }
+
+      if (guess === randomNumber) {
+        message.textContent = "🎉 صحيح! الرقم هو " + randomNumber;
+        message.style.color = "lime";
+      } else if (guess < randomNumber) {
+        message.textContent = "📉 رقمك منخفض جدًا!";
+        message.style.color = "skyblue";
+      } else {
+        message.textContent = "📈 رقمك مرتفع جدًا!";
+        message.style.color = "pink";
+      }
+    }
+
+    function restartGame() {
+      randomNumber = Math.floor(Math.random() * 11);
+      document.getElementById("message").textContent = "";
+      document.getElementById("guess").value = "";
+      console.log("رقم جديد:", randomNumber);
+    }
+  </script>
+</body>
+</html>
